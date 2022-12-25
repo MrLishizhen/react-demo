@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom/client";
 import React from "react";
 
 export let deepClone = (obj:any)=>{
@@ -26,19 +25,3 @@ export let deepClone = (obj:any)=>{
 }
 
 export const time = new Date().getTime()
-
-export function shouRouterLoading() {
-    let dom = document.createElement('div')
-    dom.setAttribute('id', 'router-loading')
-    dom.style.zIndex = "10000";
-    document.body.appendChild(dom)
-    ReactDOM.createRoot(dom).render(<span className={'loader-11'}></span>)
-}
-
-export function removeRouterLoading() {
-    if (document.getElementById('router-loading')) {
-        let timeout = setTimeout(()=>{
-            document.getElementById('router-loading').remove()
-        },1500)
-    }
-}
