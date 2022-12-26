@@ -40,6 +40,7 @@ const TabsCom = () => {
         }
 
     }
+
     return (
         <div className={styles.tabs}>
             {
@@ -50,6 +51,7 @@ const TabsCom = () => {
                     // type="card"
                     defaultActiveKey={activeKey}
                     onChange={onChange}
+                    // @ts-ignore
                     onEdit={onEdit}
                     items={[...tabs_list]}
                 />
