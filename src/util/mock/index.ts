@@ -34,6 +34,10 @@ Mock.mock('/get_menu',function(){
             {
                 label:'分析页',
                 key:'analysis'
+            },
+            {
+                label:'权限页',
+                key:'jurisdiction'
             }
 
         ]

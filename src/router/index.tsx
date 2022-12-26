@@ -8,7 +8,7 @@ import React from 'react'
 import {selectMenuList, setMenu} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {removeRouterLoading, shouRouterLoading, time} from '@/util/functions'
+import {time} from '@/util/functions'
 
 interface route {
     label?: string,
@@ -19,9 +19,8 @@ interface route {
     errorElement?: any
 }
 
-
 const modules = import.meta.glob('@/views/*/*');
-const Model = (link: any) => {
+const Model = (link: any, menu: route[]) => {
     let Com = null;
     const URL = '/src/views/' + link + '/index.tsx'
     Com = React.lazy(modules[`${URL}`] as any)
@@ -36,10 +35,10 @@ const Model = (link: any) => {
 
 
 const RouterView = () => {
-
+    const [bs_number, setBs] = useState(0)
     const dispatch = useAppDispatch()
-    const menu = useAppSelector(selectMenuList)
-    const [routes, setRoutes] = useState<route[]>([
+    const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    const routers = useRoutes([
         {
             path: '/',
             element: <Navigate to={'/welcome'}/>
@@ -47,52 +46,50 @@ const RouterView = () => {
         {
             path: '/',
             element: <App/>,
-            children: []
+            children: [
+                ...menu.map((u: route) => {
+                    return {
+                        path: u.key,
+                        element: Model(u.key, menu)
+                    }
+                }),
+                {
+                    path: '*',
+                    element: <Empty/>
+                }
+            ]
         },
         {
             path: '/login',
             element: <Login/>,
-        }
-    ])
-
+        }]
+    )
     useEffect(() => {
-
         const list = async () => {
-            if (menu.length === 0 && location.pathname != '/login') {
-                shouRouterLoading()
-                const menus = await getMenu({userName: 'admin'});
-                if (menus.code === 200) {
-                    dispatch(setMenu(menus.result))
-                } else {
-                    dispatch(setMenu([]))
+            if (bs_number === 1) {
+                // dispatch(setMenu([]))
+            } else {
+                if (menu.length === 0 && location.pathname != '/login') {
+                    const menus = await getMenu({userName: 'admin'});
+                    if (menus.code === 200) {
+                        dispatch(setMenu(menus.result))
+                    } else {
+                        dispatch(setMenu([]))
+                    }
+
+                    setBs(bs_number + 1)
                 }
             }
+
         }
         list()
-        setMenuList()
-        removeRouterLoading()
     }, [menu])
 
-
-    const setMenuList = () => {
-        let children = menu.map((u: route) => {
-            let route = {
-                path: u.key,
-                element: Model(u.key)
-            }
-            return route;
-        })
-        children.push({
-            path: '/*',
-            element: <Empty/>
-        })
-        setRoutes([routes[0], {...routes[1], children: [...children]}, routes[2]])
-    }
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? '' :
-                    <RouterProvider key={time} router={createBrowserRouter(routes)}></RouterProvider>
+                menu.length === 0 && location.pathname != '/login' ? <App/> : routers
+
             }
         </>
     )

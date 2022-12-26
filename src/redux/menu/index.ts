@@ -1,15 +1,11 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
 import type {RootState} from '../store'
 import {getMenu} from "@/api";
-import React from "react";
-import {Navigate} from "react-router-dom";
-import App from "@/App";
-import Login from "@/views/login";
+import {deepClone} from "@/util/functions";
 
-// 为 slice state 定义一个类型
-interface menuState {
-    path?: string,
-    element?: string
+interface route {
+    label: string,
+    key: string,
 }
 
 interface getPost {
@@ -20,7 +16,8 @@ interface getPost {
 
 // 使用该类型定义初始 state
 const initialState = {
-    menu_list:[]
+    menu_list: [],
+    tabs_list: []
 }
 
 
@@ -31,6 +28,18 @@ export const menuSlice = createSlice({
     reducers: {
         setMenu: (state, action) => {
             state.menu_list = action.payload
+        },
+        setTabs: (state, action) => {
+            let tab: route = state.menu_list.find((u: route) => '/' + u.key === action.payload) || {
+                label: '',
+                key: ''
+            };
+            if (state.tabs_list.findIndex((u: route) => u?.key === tab?.key) === -1 && tab.key !== '') {
+                state.tabs_list.push(tab)
+            }
+        },
+        removeTab: (state, action) => {
+            state.tabs_list = action.payload;
         }
     },
     extraReducers(builder) {
@@ -46,9 +55,9 @@ export const menuSlice = createSlice({
     }
 })
 
-export const {setMenu} = menuSlice.actions
+export const {setMenu, setTabs,removeTab} = menuSlice.actions
 // 选择器等其他代码可以使用导入的 `RootState` 类型
-export const selectMenuList = (state: RootState) =>state.menuSlice.menu_list
+export const selectMenuList = (state: RootState) => state.menuSlice.menu_list
 
 export const getMenuList = createAsyncThunk('menu/getMenu', async (): Promise<getPost> => {
     let res = await getMenu({userName: 'admin'});

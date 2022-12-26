@@ -2,10 +2,9 @@ import React, {useEffect} from 'react'
 import {Button, Checkbox, Form, Input, message} from 'antd';
 import styles from './index.module.less'
 import {getMenu, userLogin} from "@/api/index";
-import {useNavigate,redirect} from "react-router-dom";
+import {useNavigate, redirect} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenuList, setMenu} from "@/redux/menu";
-import {removeRouterLoading, shouRouterLoading} from "@/util/functions";
 
 const Login_com: React.FC<{ onChange: () => void }> = ({onChange}) => {
     const [form] = Form.useForm();
@@ -19,16 +18,14 @@ const Login_com: React.FC<{ onChange: () => void }> = ({onChange}) => {
                     type: 'success',
                     content: '登录成功,正在跳转!',
                 });
-                sessionStorage.setItem('userInfo',JSON.stringify(res.result))
-                shouRouterLoading()
-                const menus = await getMenu({userName:'admin'});
-                if(menus.code===200){
+                sessionStorage.setItem('userInfo', JSON.stringify(res.result))
+                const menus = await getMenu({userName: 'admin'});
+                if (menus.code === 200) {
                     dispatch(setMenu(menus.result))
-                }else{
+                } else {
                     dispatch(setMenu([]))
                 }
-                navigate('/',{replace:true})
-                removeRouterLoading()
+                navigate('/welcome', {replace: true})
                 // dispatch(getMenuList())
             } else {
                 messageApi.open({
