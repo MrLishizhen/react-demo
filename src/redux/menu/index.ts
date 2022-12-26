@@ -15,7 +15,10 @@ interface getPost {
 }
 
 // 使用该类型定义初始 state
-const initialState = {
+const initialState: {
+    menu_list: route[]
+    tabs_list: route[]
+} = {
     menu_list: [],
     tabs_list: []
 }
