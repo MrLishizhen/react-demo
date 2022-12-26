@@ -6,6 +6,11 @@ import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useNavigate} from "react-router-dom";
 import {deepClone} from "@/util/functions";
 
+interface route {
+    label: string,
+    key: string,
+}
+
 const TabsCom = () => {
     const tabs_list = useAppSelector(state => state.menuSlice.tabs_list)
     const dispatch = useAppDispatch()
@@ -22,12 +27,15 @@ const TabsCom = () => {
     };
     const onEdit = (targetKey: string, action: 'remove') => {
 
-        let tabIndex = tabs_list.findIndex(u => u.key === targetKey);
+        let tabIndex = tabs_list.findIndex((u: route) => u.key === targetKey);
         let tabs = deepClone(tabs_list)
-        tabs.splice(tabIndex , 1);
+        tabs.splice(tabIndex, 1);
         if (tabs.length === 0) {
             navigate('/welcome')
-        }else{
+        } else {
+            if (location.pathname === targetKey) {
+                navigate('/' + tabs[tabs.length - 1].key)
+            }
             dispatch(removeTab(tabs))
         }
 

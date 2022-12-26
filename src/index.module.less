@@ -38,7 +38,34 @@ body, html {
       justify-content: center;
       align-items: center;
       .username{
+        position:relative;
         margin-left:18px;
+        height:100%;
+        line-height:60px;
+        &:hover .user_list{
+          display:block;
+        }
+        .user_list{
+          display: none;
+          position:absolute;
+          box-shadow: 0 0 10px #f0f0f0;
+          top:60px;
+          right:-6px;
+          width: 160px;
+          background:rgba(0,0,0,.4);
+          border-radius: 4px;
+          padding:8px;
+          z-index: 10000;
+          .user_list_item{
+            height:36px;
+            line-height: 36px;
+            text-align:center;
+            &:hover{
+              background:#fff;
+              color:#4078f2;
+            }
+          }
+        }
       }
     }
   }
