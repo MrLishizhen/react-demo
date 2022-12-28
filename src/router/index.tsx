@@ -8,7 +8,7 @@ import React from 'react'
 import {selectMenuList, setMenu} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {time} from '@/util/functions'
+import {deepClone, time} from '@/util/functions'
 
 interface route {
     label?: string,
@@ -20,10 +20,23 @@ interface route {
 }
 
 const modules = import.meta.glob('@/views/*/*');
+const comModules = import.meta.glob('@/views/component/*/*')
 const Model = (link: any, menu: route[]) => {
     let Com = null;
     const URL = '/src/views/' + link + '/index.tsx'
     Com = React.lazy(modules[`${URL}`] as any)
+    return (
+        <>
+            {
+                Com ? <Com></Com> : ''
+            }
+        </>
+    )
+}
+const comModel = (link: any, menu: route[]) => {
+    let Com = null;
+    const URL = '/src/views/' + link + '/index.tsx'
+    Com = React.lazy(comModules[`${URL}`] as any)
     return (
         <>
             {
@@ -37,7 +50,7 @@ const Model = (link: any, menu: route[]) => {
 const RouterView = () => {
     const [bs_number, setBs] = useState(0)
     const dispatch = useAppDispatch()
-    const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    const menu: route[] = useAppSelector(state => state.menuSlice.menu_list.filter(u => u.key))
     const routers = useRoutes([
         {
             path: '/',
@@ -50,7 +63,7 @@ const RouterView = () => {
                 ...menu.map((u: route) => {
                     return {
                         path: u.key,
-                        element: Model(u.key, menu)
+                        element: u.key && u.key.indexOf('/') === -1 ? Model(u.key, menu) : comModel(u.key, menu)
                     }
                 }),
                 {

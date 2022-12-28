@@ -41,6 +41,9 @@ export const menuSlice = createSlice({
                 state.tabs_list.push(tab)
             }
         },
+        removeMenu: (state) => {
+            state.menu_list=[];
+        },
         removeTab: (state, action) => {
             state.tabs_list = action.payload;
         }
@@ -58,7 +61,7 @@ export const menuSlice = createSlice({
     }
 })
 
-export const {setMenu, setTabs,removeTab} = menuSlice.actions
+export const {setMenu, setTabs, removeTab,removeMenu} = menuSlice.actions
 // 选择器等其他代码可以使用导入的 `RootState` 类型
 export const selectMenuList = (state: RootState) => state.menuSlice.menu_list
 

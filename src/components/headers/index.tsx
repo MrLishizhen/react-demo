@@ -1,7 +1,8 @@
 import styles from "@/index.module.less";
 import {UserOutlined} from '@ant-design/icons';
 import {Avatar, Badge} from 'antd';
-import Weather from "@/components/weather";
+import {useAppDispatch} from '@/redux/hook'
+import {removeMenu,removeTab} from '@/redux/menu'
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -14,6 +15,7 @@ interface user {
 const Header = () => {
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
     useEffect(() => {
         const user = sessionStorage.getItem('userInfo') || 0;
         if (user) {
@@ -23,6 +25,8 @@ const Header = () => {
     const clearUser = () => {
         if(USER.token){
             sessionStorage.removeItem('userInfo');
+            dispatch(removeTab([]))
+            dispatch(removeMenu())
             navigate('/login',{replace:true})
         }
     }

@@ -29,17 +29,46 @@ Mock.mock('/get_menu',function(){
         'result':[
             {
                 label:'欢迎',
-                key:'welcome'
+                key:'welcome',
+                fid:0,
+                id:1
             },
             {
                 label:'分析页',
-                key:'analysis'
+                key:'analysis',
+                fid:0,
+                id:2
+            },
+            {
+                label:'组件库',
+                key:'component',
+                fid:0,
+                id:4,
+            },
+            {
+                label:'表格',
+                key:'component/table',
+                fid:4,
+                id:5,
+            },
+            {
+                label:'echarts',
+                key:'component/echarts',
+                fid:4,
+                id:6,
+            },
+            {
+                label:'公共分页',
+                key:'public',
+                fid:0,
+                id:7,
             },
             {
                 label:'权限页',
-                key:'jurisdiction'
+                key:'jurisdiction',
+                fid:7,
+                id:3
             }
-
         ]
     })
 })
