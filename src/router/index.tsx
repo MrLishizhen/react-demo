@@ -1,14 +1,15 @@
 import App from '@/App'
 import Login from '@/views/login'
 import Empty from '@/views/empty'
-import Loading from '../../public/loading.gif'
 import {Navigate, useRoutes, RouterProvider, createBrowserRouter} from 'react-router-dom'
 import {useEffect, useState} from "react";
+import {ConfigProvider} from 'antd';
 import React from 'react'
 import {selectMenuList, setMenu} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
 import {deepClone, time} from '@/util/functions'
+import zhCN from "antd/locale/zh_CN";
 
 interface route {
     label?: string,
@@ -99,12 +100,12 @@ const RouterView = () => {
     }, [menu])
 
     return (
-        <>
+        <ConfigProvider locale={zhCN}>
             {
                 menu.length === 0 && location.pathname != '/login' ? <App/> : routers
 
             }
-        </>
+        </ConfigProvider>
     )
 }
 export default RouterView

@@ -71,9 +71,10 @@ body, html {
   }
 
   .App_bom {
+    width:100%;
     flex-grow: 1;
     display: flex;
-
+    overflow: hidden;
     .App_aside {
       padding-top: 30px;
       width: 300px;
@@ -84,17 +85,18 @@ body, html {
     }
 
     .App_main {
+      width:100%;
       flex-grow: 1;
       display: flex;
-
       flex-direction: column;
-
       .App_nav {
         height: 48px;
         flex-shrink: 0;
       }
 
       .App_outlet {
+        width:100%;
+        overflow: hidden;
         padding:16px;
         flex-grow: 1;
       }
