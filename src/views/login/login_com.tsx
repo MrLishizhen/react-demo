@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Button, Checkbox, Form, Input, message} from 'antd';
 import styles from './index.module.less'
 import {getMenu, userLogin} from "@/api/index";
-import {useNavigate, redirect} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from '@/redux/hook'
-import {getMenuList, setMenu} from "@/redux/menu";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from '@/redux/hook'
+import {setMenu} from "@/redux/menu";
 
 const Login_com: React.FC<{ onChange: () => void }> = ({onChange}) => {
     const [form] = Form.useForm();

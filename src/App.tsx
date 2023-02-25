@@ -6,16 +6,7 @@ import Header from "@/components/headers";
 import TabsCom from '@/components/tabs'
 import {message} from 'antd'
 function App() {
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (location.pathname.indexOf('login') === -1) {
-            const local_user = sessionStorage.getItem('userInfo') || 0;
-            if (!local_user) {
-                message.success('登录失效，请重新登录');
-                navigate('/login');
-            }
-        }
-    }, [])
+
     return (
         <section className={styles.App}>
             <Header/>

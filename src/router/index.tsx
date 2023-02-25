@@ -1,14 +1,15 @@
 import App from '@/App'
 import Login from '@/views/login'
 import Empty from '@/views/empty'
-import Loading from '../../public/loading.gif'
-import {Navigate, useRoutes, RouterProvider, createBrowserRouter} from 'react-router-dom'
+import {Navigate, useRoutes, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from "react";
 import React from 'react'
-import {selectMenuList, setMenu} from '@/redux/menu'
+import {setMenu} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {time} from '@/util/functions'
+import {message} from "antd";
+import {get_routers} from "@/router/route";
+import _ from 'lodash'
 
 interface route {
     label?: string,
@@ -19,25 +20,12 @@ interface route {
     errorElement?: any
 }
 
-const modules = import.meta.glob('@/views/*/*');
-const Model = (link: any, menu: route[]) => {
-    let Com = null;
-    const URL = '/src/views/' + link + '/index.tsx'
-    Com = React.lazy(modules[`${URL}`] as any)
-    return (
-        <>
-            {
-                Com ? <Com></Com> : ''
-            }
-        </>
-    )
-}
-
 
 const RouterView = () => {
     const [bs_number, setBs] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    console.log(get_routers(_.cloneDeep(menu)),1)
     const routers = useRoutes([
         {
             path: '/',
@@ -47,12 +35,7 @@ const RouterView = () => {
             path: '/',
             element: <App/>,
             children: [
-                ...menu.map((u: route) => {
-                    return {
-                        path: u.key,
-                        element: Model(u.key, menu)
-                    }
-                }),
+                ...get_routers(_.cloneDeep(menu)),
                 {
                     path: '*',
                     element: <Empty/>
@@ -64,11 +47,11 @@ const RouterView = () => {
             element: <Login/>,
         }]
     )
+
+    //判断是否登陆
     useEffect(() => {
         const list = async () => {
-            if (bs_number === 1) {
-                // dispatch(setMenu([]))
-            } else {
+            if (!bs_number) {
                 if (menu.length === 0 && location.pathname != '/login') {
                     const menus = await getMenu({userName: 'admin'});
                     if (menus.code === 200) {
@@ -84,6 +67,16 @@ const RouterView = () => {
         }
         list()
     }, [menu])
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (location.pathname.indexOf('login') === -1) {
+            const local_user = sessionStorage.getItem('userInfo') || 0;
+            if (!local_user) {
+                message.success('登录失效，请重新登录');
+                navigate('/login');
+            }
+        }
+    }, [])
 
     return (
         <>

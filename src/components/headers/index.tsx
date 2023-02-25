@@ -1,7 +1,6 @@
 import styles from "@/index.module.less";
 import {UserOutlined} from '@ant-design/icons';
 import {Avatar, Badge} from 'antd';
-import Weather from "@/components/weather";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 

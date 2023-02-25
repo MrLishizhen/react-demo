@@ -1,18 +1,10 @@
 import styles from './index.module.less'
 import React, {useEffect, useRef, useState} from 'react';
-import Login_com from './Login_com'
-import Register from './Register'
-// import {useNavigate} from "react-router-dom";
+import Login_com from './login_com'
+import Register from './register'
 
 export default function Login() {
     const [head, setHead] = useState<boolean>(true)
-    // const navigate = useNavigate();
-    // useEffect(()=>{
-    //     const local = sessionStorage.getItem('userInfo')||0;
-    //     if(local){
-    //         navigate('/react-demo/views')
-    //     }
-    // },[])
     //切换登录注册
     const tabClick = () => {
         setHead(!head)
