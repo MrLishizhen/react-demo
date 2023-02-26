@@ -1,10 +1,9 @@
-import React, {useEffect, useState,Suspense} from 'react'
+import React, {Suspense} from 'react'
 import styles from './index.module.less'
-import {Outlet, useNavigate} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
 import MenuCom from "@/components/menu";
 import Header from "@/components/headers";
 import TabsCom from '@/components/tabs'
-import {message} from 'antd'
 function App() {
 
     return (

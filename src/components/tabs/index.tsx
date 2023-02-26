@@ -25,20 +25,19 @@ const TabsCom = () => {
     const onChange = (key: string) => {
         navigate(key)
     };
-    const onEdit = (targetKey: string, action: 'remove') => {
-
+    const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove',) => {
         let tabIndex = tabs_list.findIndex((u: route) => u.key === targetKey);
         let tabs = deepClone(tabs_list)
         tabs.splice(tabIndex, 1);
         if (tabs.length === 0) {
             navigate('/welcome')
         } else {
-            if (location.pathname === targetKey) {
+            if (location.pathname === '/'+targetKey) {
                 navigate('/' + tabs[tabs.length - 1].key)
             }
-            dispatch(removeTab(tabs))
-        }
 
+        }
+        dispatch(removeTab(tabs))
     }
     return (
         <div className={styles.tabs}>
@@ -46,9 +45,11 @@ const TabsCom = () => {
                 tabs_list.length === 0 ? '' : <Tabs
                     type="editable-card"
                     hideAdd
-                    key={activeKey}
+                    size={'small'}
+                    // key={activeKey}
                     // type="card"
-                    defaultActiveKey={activeKey}
+                    activeKey={activeKey}
+                    // defaultActiveKey={activeKey}
                     onChange={onChange}
                     onEdit={onEdit}
                     items={[...tabs_list]}

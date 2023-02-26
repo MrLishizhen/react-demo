@@ -1,16 +1,28 @@
 import styles from "@/index.module.less";
-import {UserOutlined} from '@ant-design/icons';
+import React from 'react';
+import {UserOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
 import {Avatar, Badge} from 'antd';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-
+import {useAppDispatch, useAppSelector} from "@/redux/hook";
+import {toggleCollapsed} from '@/redux/menu'
 interface user {
     userName: string,
     password: string,
     token?: string
 }
 
+const MenuBtn:React.FC<{menu_btn:boolean}> = ({menu_btn}) => {
+    const styles = {fontSize:22}
+    if (menu_btn) {
+        return <MenuFoldOutlined style={styles}/>
+    } else {
+        return <MenuUnfoldOutlined style={styles}/>
+    }
+}
 const Header = () => {
+    const dispatch = useAppDispatch();
+    const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
     const navigate = useNavigate()
     useEffect(() => {
@@ -20,18 +32,22 @@ const Header = () => {
         }
     }, [])
     const clearUser = () => {
-        if(USER.token){
+        if (USER.token) {
             sessionStorage.removeItem('userInfo');
-            navigate('/login',{replace:true})
+            navigate('/login', {replace: true})
         }
     }
     return (
         <header className={styles.App_header}>
-            <div className={styles.logo}>
+            <div className={styles.logo} style={{width:inlineCollapsed?90:260}}>
 
             </div>
             <div className={styles.head_com}>
-
+                <div className={styles.head_btn} onClick={()=>dispatch(toggleCollapsed())}>
+                    <MenuBtn menu_btn={!inlineCollapsed}/>
+                </div>
+                <div className={styles.head_breadcrumb}></div>
+                <div className={styles.head_right}></div>
             </div>
             <div className={styles.user}>
                 <Badge count={1}>

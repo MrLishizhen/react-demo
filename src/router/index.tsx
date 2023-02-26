@@ -4,7 +4,7 @@ import Empty from '@/views/empty'
 import {Navigate, useRoutes, useNavigate} from 'react-router-dom'
 import {useEffect, useState} from "react";
 import React from 'react'
-import {setMenu} from '@/redux/menu'
+import {setMenu,removeTab} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
 import {message} from "antd";
@@ -25,7 +25,6 @@ const RouterView = () => {
     const [bs_number, setBs] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
-    console.log(get_routers(_.cloneDeep(menu)),1)
     const routers = useRoutes([
         {
             path: '/',
@@ -69,6 +68,13 @@ const RouterView = () => {
     }, [menu])
     const navigate = useNavigate()
     useEffect(() => {
+
+        if (location.pathname.indexOf('login') > -1) {
+            console.log(123456)
+            dispatch(removeTab([]))
+            dispatch(setMenu([]))
+        }
+
         if (location.pathname.indexOf('login') === -1) {
             const local_user = sessionStorage.getItem('userInfo') || 0;
             if (!local_user) {
@@ -76,7 +82,7 @@ const RouterView = () => {
                 navigate('/login');
             }
         }
-    }, [])
+    }, [location.pathname])
 
     return (
         <>
