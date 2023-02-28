@@ -16,7 +16,7 @@ function App() {
                         <TabsCom></TabsCom>
                     </nav>
                     <section className={styles.App_outlet}>
-                        <Suspense fallback={<div></div>}>
+                        <Suspense fallback={<div className={styles.loading}></div>}>
                             <Outlet></Outlet>
                         </Suspense>
                     </section>
