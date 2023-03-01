@@ -28,11 +28,17 @@ const TabsCom = () => {
     const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove',) => {
         let tabIndex = tabs_list.findIndex((u: route) => u.key === targetKey);
         let tabs = deepClone(tabs_list)
-        tabs.splice(tabIndex, 1);
+        if (tabs.length === 1 && tabs[tabIndex].key === 'welcome') {
+            //什么都不做
+        } else {
+            tabs.splice(tabIndex, 1);
+        }
+
+
         if (tabs.length === 0) {
             navigate('/welcome')
         } else {
-            if (location.pathname === '/'+targetKey) {
+            if (location.pathname === '/' + targetKey) {
                 navigate('/' + tabs[tabs.length - 1].key)
             }
 
