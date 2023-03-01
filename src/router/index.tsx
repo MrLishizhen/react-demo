@@ -2,9 +2,9 @@ import App from '@/App'
 import Login from '@/views/login'
 import Empty from '@/views/empty'
 import {Navigate, useRoutes, useNavigate} from 'react-router-dom'
-import {useEffect, useState} from "react";
+import {createRef, useEffect, useRef, useState} from "react";
 import React from 'react'
-import {setMenu, removeTab} from '@/redux/menu'
+import {setMenu, removeTab, setRoutes} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
 import {message} from "antd";
@@ -25,6 +25,7 @@ const RouterView = () => {
     const [bs_number, set_bs_number] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+
     const routers = useRoutes([
             {
                 path: '/',
@@ -63,13 +64,21 @@ const RouterView = () => {
         }
     }, [location.pathname])
     //判断是否登陆
+    const ref = useRef<string | null>(null)
     useEffect(() => {
         const list = async () => {
             if (!bs_number) {
                 if (menu.length === 0 && location.pathname != '/login') {
                     const menus = await getMenu({userName: 'admin'});
                     if (menus.code === 200) {
+
                         dispatch(setMenu(menus.result))
+                        dispatch(setRoutes(_.cloneDeep(menus.result.map((u: any) => {
+                            return {
+                                ...u,
+                                nodeRef: ref
+                            }
+                        }))))
                     } else {
                         dispatch(setMenu([]))
                     }

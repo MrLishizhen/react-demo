@@ -18,10 +18,12 @@ const initialState: {
     menu_list: route[]
     tabs_list: route[],
     inlineCollapsed:boolean,
+    routes:any[]
 } = {
     menu_list: [],
     tabs_list: [],
-    inlineCollapsed:false
+    inlineCollapsed:false,
+    routes:[]
 }
 
 
@@ -49,6 +51,9 @@ export const menuSlice = createSlice({
         },
         removeTab: (state, action) => {
             state.tabs_list = action.payload;
+        },
+        setRoutes:(state,action)=>{
+            state.routes = action.payload
         }
     },
     extraReducers(builder) {
@@ -63,7 +68,7 @@ export const menuSlice = createSlice({
     }
 })
 
-export const {setMenu, setTabs, removeTab,toggleCollapsed} = menuSlice.actions
+export const {setMenu, setTabs, removeTab,toggleCollapsed,setRoutes} = menuSlice.actions
 // 选择器等其他代码可以使用导入的 `RootState` 类型
 export const selectMenuList = (state: RootState) => state.menuSlice.menu_list
 

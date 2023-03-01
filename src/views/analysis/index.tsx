@@ -1,6 +1,7 @@
+import styles from './index.module.less'
 const Analysis = ()=>{
     return (
-        <div>分析页</div>
+        <div className={styles.analysis}>分析页</div>
     )
 }
 

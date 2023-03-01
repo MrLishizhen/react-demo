@@ -75,3 +75,42 @@
     }
 
 }
+
+
+.page {
+    /*width:calc(100% - 16*2px);*/
+    /*height:calc(100% - 16*2px);*/
+    width: 100%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    /*left: 16px;*/
+    /*right: 16px;*/
+}
+
+.page-enter {
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(50%);
+}
+
+.page-enter-active {
+    z-index: 2;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 500ms;
+}
+
+.page-exit {
+    z-index: 1;
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.page-exit-active {
+    z-index: 1;
+    opacity: .3;
+    transition: all 500ms;
+    transform: translateX(100%);
+}

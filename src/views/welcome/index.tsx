@@ -1,7 +1,7 @@
-
+import styles from './index.module.less'
 const Welcome = () => {
     return (
-        <div style={{width: '100%', height: '100%'}}>
+        <div className={styles.welcome}>
             秋雨不良人....
         </div>
     )
