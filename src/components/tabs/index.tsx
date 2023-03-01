@@ -50,6 +50,7 @@ const TabsCom = () => {
             {
                 tabs_list.length === 0 ? '' : <Tabs
                     type="editable-card"
+                    // key={activeKey}
                     hideAdd
                     size={'small'}
                     // key={activeKey}

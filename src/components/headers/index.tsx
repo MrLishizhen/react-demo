@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {toggleCollapsed} from '@/redux/menu'
+import logo from '@/assets/logo-removebg-preview.png'
 interface user {
     userName: string,
     password: string,
@@ -40,7 +41,7 @@ const Header = () => {
     return (
         <header className={styles.App_header}>
             <div className={styles.logo} style={{width:inlineCollapsed?90:260}}>
-
+                <img src={logo} alt="logo"/>
             </div>
             <div className={styles.head_com}>
                 <div className={styles.head_btn} onClick={()=>dispatch(toggleCollapsed())}>

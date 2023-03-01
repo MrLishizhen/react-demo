@@ -79,8 +79,7 @@ Mock.mock('/get_menu',function(){
                 meta:{
                     title:'菜单权限'
                 }
-            },
-
+            }
         ]
     })
 })

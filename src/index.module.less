@@ -23,10 +23,14 @@ body, html {
     display: flex;
 
     .logo {
+      display:flex;
+      justify-content: center;
+      align-items: center;
       flex-shrink: 0;
       width: 260px;
       height: 58px;
       transition: width 0.3s;
+      //background:url(./assets/logo-removebg-preview.png) no-repeat center center;
     }
 
     .head_com {
@@ -113,7 +117,7 @@ body, html {
     .App_main {
       flex-grow: 1;
       display: flex;
-
+      overflow: hidden;
       flex-direction: column;
 
       .App_nav {
