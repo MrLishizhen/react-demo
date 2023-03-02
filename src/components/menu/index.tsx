@@ -7,46 +7,47 @@ import {Menu} from 'antd';
 import _ from 'lodash'
 import IconFont from '@/components/icon'
 
-interface route {
-    label?: string,
-    key?: string,
-    icon?:string,
+interface route extends global_route {
     path?: string,
     element?: any,
-    component?: string,
-    children?: route[],
-    errorElement?: any
+    children?: route[]
 }
 
-const get_menu = (data: any) => {
+const get_menu = (data: global_route[]) => {
+    const links = data.filter((u: global_route) => u.parent_id === 0)
+    const set_children_data = (datas: route[] | undefined) => {
+        if (Array.isArray(datas)) {
+            for (let i = 0; i < datas.length; i++) {
+                const children = data.filter((u) => u.parent_id === datas[i].id);
 
-    const set_children_data = (datas: any) => {
-        for (let i = 0; i < datas.length; i++) {
-            const children = data.filter((u: any) => u.parent_id === datas[i].id);
+                if (children.length > 0) {
 
-            if (children.length > 0) {
+                    datas[i].children = children.map((u) => {
+                        return {
+                            ...u,
+                            icon: <IconFont icon_link={u.icon as string}/>
+                        }
+                    })
+                    set_children_data(datas[i]['children'])
+                } else {
+                    return
+                }
 
-                datas[i].children = children.map((u:route)=>{
-                    return {
-                        ...u,
-                        icon:<IconFont icon_link={u.icon}/>
-                    }
-                })
-                set_children_data(datas[i]['children'])
-            } else {
-                return
             }
-
+        } else {
+            return
         }
+
     }
-    const links = data.filter((u: any) => u.parent_id === 0)
+
 
     for (let i = 0; i < links.length; i++) {
-        links[i].icon = <IconFont icon_link={links[i].icon}/>
+        links[i].icon = <IconFont icon_link={(links[i].icon as string)}/>
+
         set_children_data([links[i]])
     }
 
-    let menu = [...links]
+    let menu: route[] = [...links]
 
     return menu
 }
@@ -65,7 +66,7 @@ const MenuCom = () => {
     const navigate = useNavigate()
     const [selectedKeys, setSelectedKeys] = useState(location.pathname)
     const [openKeys, setOpenKeys] = useState(getOpenKeys())
-    const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    const menu: global_route[] = useAppSelector(state => state.menuSlice.menu_list)
     let items: MenuProps['items'] = get_menu(_.cloneDeep(menu))
     const menuClick: MenuProps['onClick'] = (e) => {
         navigate(e.key)
@@ -86,7 +87,7 @@ const MenuCom = () => {
                 theme="dark"
                 onClick={menuClick}
                 onOpenChange={openChange}
-                style={{width:inlineCollapsed?90:260}}
+                style={{width: inlineCollapsed ? 90 : 260}}
                 openKeys={openKeys}
                 selectedKeys={[selectedKeys]}
                 mode="inline"

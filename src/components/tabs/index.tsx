@@ -26,7 +26,7 @@ const TabsCom = () => {
         navigate(key)
     };
     const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove',) => {
-        let tabIndex = tabs_list.findIndex((u: route) => u.key === targetKey);
+        let tabIndex = tabs_list.findIndex((u: tabs_type) => u.key === targetKey);
         let tabs = deepClone(tabs_list)
         if (tabs.length === 1 && tabs[tabIndex].key === 'welcome') {
             //什么都不做
