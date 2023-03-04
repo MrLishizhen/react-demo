@@ -6,11 +6,6 @@ import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useNavigate} from "react-router-dom";
 import {deepClone} from "@/util/functions";
 
-interface route {
-    label: string,
-    key: string,
-}
-
 const TabsCom = () => {
     const tabs_list = useAppSelector(state => state.menuSlice.tabs_list)
     const dispatch = useAppDispatch()

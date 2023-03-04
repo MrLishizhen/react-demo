@@ -1,7 +1,7 @@
 import App from '@/App'
 import Login from '@/views/login'
 import Empty from '@/views/empty'
-import {Navigate, useRoutes, useNavigate} from 'react-router-dom'
+import {Navigate, useRoutes, useNavigate, useLocation} from 'react-router-dom'
 import {createRef, useEffect, useRef, useState} from "react";
 import React from 'react'
 import {setMenu, removeTab, setRoutes} from '@/redux/menu'
@@ -17,7 +17,8 @@ interface route {
     path?: string,
     element?: any,
     children?: route[],
-    errorElement?: any
+    errorElement?: any,
+    meta?: meta
 }
 
 
@@ -25,6 +26,25 @@ const RouterView = () => {
     const [bs_number, set_bs_number] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    const location = useLocation()
+
+    //修改网站title
+    useEffect(() => {
+        const route: route | undefined = menu.find((u) => '/' + u.key === location.pathname)
+        if (route) {
+            const {meta: meta} = route
+            if (meta?.title) {
+                document.title = meta?.title
+            } else {
+                document.title = 'admin'
+            }
+        } else {
+            if (location.pathname === '/login') {
+                document.title = '登陆'
+            }
+        }
+
+    }, [location.pathname, menu])
 
     const routers = useRoutes([
             {
@@ -43,7 +63,7 @@ const RouterView = () => {
                 element: <Login/>,
             }, {
                 path: '*',
-                element: <Empty/>
+                element: <Empty title={404}/>
             }
         ]
     )
@@ -63,7 +83,7 @@ const RouterView = () => {
             }
         }
     }, [location.pathname])
-    //判断是否登陆
+    //判断是否已经有了导航数据
     const ref = useRef<string | null>(null)
     useEffect(() => {
         const list = async () => {
@@ -93,7 +113,7 @@ const RouterView = () => {
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? <App/> : routers
+                menu.length === 0 && location.pathname != '/login' ? '' : routers
 
             }
         </>
