@@ -79,6 +79,17 @@ Mock.mock('/get_menu',function(){
                 meta:{
                     title:'菜单权限'
                 }
+            },
+            {
+                id:6,
+                parent_id:0,
+                icon:'AudioOutlined',
+                label:'动态音效',
+                name:'music',
+                key:'music',
+                meta:{
+                    title:'动态音效'
+                }
             }
         ]
     })
