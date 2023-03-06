@@ -7,14 +7,17 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {toggleCollapsed} from '@/redux/menu'
 import logo from '@/assets/logo-removebg-preview.png'
+import Breadcrumb from './breadcrumb'
+
+
 interface user {
     userName: string,
     password: string,
     token?: string
 }
 
-const MenuBtn:React.FC<{menu_btn:boolean}> = ({menu_btn}) => {
-    const styles = {fontSize:22}
+const MenuBtn: React.FC<{ menu_btn: boolean }> = ({menu_btn}) => {
+    const styles = {fontSize: 20}
     if (menu_btn) {
         return <MenuFoldOutlined style={styles}/>
     } else {
@@ -40,14 +43,16 @@ const Header = () => {
     }
     return (
         <header className={styles.App_header}>
-            <div className={styles.logo} style={{width:inlineCollapsed?90:260}}>
+            <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 260}}>
                 <img src={logo} alt="logo"/>
             </div>
             <div className={styles.head_com}>
-                <div className={styles.head_btn} onClick={()=>dispatch(toggleCollapsed())}>
+                <div className={styles.head_btn} onClick={() => dispatch(toggleCollapsed())}>
                     <MenuBtn menu_btn={!inlineCollapsed}/>
                 </div>
-                <div className={styles.head_breadcrumb}></div>
+                {/*<div className={styles.head_breadcrumb}>*/}
+                <Breadcrumb/>
+                {/*</div>*/}
                 <div className={styles.head_right}></div>
             </div>
             <div className={styles.user}>
