@@ -12,7 +12,7 @@ interface IconFontType {
 
 const IconFont: (props: IconFontType) => (React.ReactElement) = (props:IconFontType)=> {
     const {icon_link,style} = props;
-    const styles = {fontSize:16,color:'#fff',...style}
+    const styles = {...style}
     switch (icon_link){
         case 'HomeOutlined':
             return <HomeOutlined style={styles}/>

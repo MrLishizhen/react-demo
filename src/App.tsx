@@ -9,11 +9,15 @@ import WaterMarkBox from '@/components/watermark/index'
 import {SwitchTransition, CSSTransition} from 'react-transition-group'
 import {useAppSelector} from '@/redux/hook'
 import _ from "lodash";
-import {Layout} from 'antd'
+import {Layout, theme} from 'antd'
 
 const {Content} = Layout;
 
 function App() {
+
+    const {
+        token: {colorTextBase},
+    } = theme.useToken();
     const location = useLocation();
     const routes = _.cloneDeep(useAppSelector(state => state.menuSlice.routes))
     const {nodeRef} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
@@ -39,7 +43,7 @@ function App() {
                                         unmountOnExit>
                                         {(state) => {
                                             return (
-                                                <div ref={nodeRef} className={'page'}>
+                                                <div style={{color: colorTextBase}} ref={nodeRef} className={'page'}>
 
                                                     {currentOutlet}
                                                     {/*{<Outlet></Outlet>}*/}

@@ -7,9 +7,10 @@ import React from 'react'
 import {setMenu, removeTab, setRoutes} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {message,ConfigProvider,theme} from "antd";
+import {message, ConfigProvider, theme} from "antd";
 import {get_routers} from "@/router/route";
 import _ from 'lodash'
+import {setGlobalStyle} from "@/redux/global";
 
 interface route {
     label?: string,
@@ -26,6 +27,7 @@ const RouterView = () => {
     const [bs_number, set_bs_number] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
+    const {global_color} = useAppSelector(state => state.globalSlice.global)
     const location = useLocation()
 
     //修改网站title
@@ -71,6 +73,7 @@ const RouterView = () => {
     const navigate = useNavigate()
     useEffect(() => {
         if (location.pathname.indexOf('login') > -1) {
+            dispatch(setGlobalStyle(true))
             dispatch(removeTab([]))
             dispatch(setMenu([]))
         }
@@ -113,7 +116,8 @@ const RouterView = () => {
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider theme={{algorithm:theme.darkAlgorithm}}>{routers}</ConfigProvider>
+                menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider
+                    theme={{algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']}}>{routers}</ConfigProvider>
 
             }
         </>

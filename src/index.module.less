@@ -18,7 +18,7 @@ body, html {
   .App_header {
     padding: 0;
     //background: #393c3f;
-    color: #fff;
+    //color: #fff;
     height: 60px;
     flex-shrink: 0;
     display: flex;
@@ -50,11 +50,13 @@ body, html {
       }
 
       .head_breadcrumb {
-
+        flex-shrink: 0;
       }
 
       .head_right {
-
+        flex-grow: 1;
+        display:flex;
+        justify-content: flex-end;
       }
     }
 
@@ -84,7 +86,7 @@ body, html {
           top: 60px;
           right: -6px;
           width: 160px;
-          background: rgba(0, 0, 0, .4);
+          //background: rgba(0, 0, 0, .4);
           border-radius: 4px;
           padding: 8px;
           z-index: 10000;
@@ -95,7 +97,7 @@ body, html {
             text-align: center;
 
             &:hover {
-              background: #fff;
+              //background: #fff;
               color: #4078f2;
             }
           }

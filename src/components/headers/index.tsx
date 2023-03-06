@@ -1,16 +1,16 @@
 import styles from "@/index.module.less";
 import React from 'react';
 import {UserOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
-import {Avatar, Badge} from 'antd';
+import {Avatar, Badge, theme} from 'antd';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
+import {setGlobalStyle} from '@/redux/global'
 import {toggleCollapsed} from '@/redux/menu'
 import logo from '@/assets/logo-removebg-preview.png'
 import Breadcrumb from './breadcrumb'
-import {Layout} from 'antd'
+import {Layout,Switch} from 'antd'
 const { Header} = Layout;
-
 interface user {
     userName: string,
     password: string,
@@ -26,8 +26,12 @@ const MenuBtn: React.FC<{ menu_btn: boolean }> = ({menu_btn}) => {
     }
 }
 const Headers = () => {
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
     const dispatch = useAppDispatch();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
+    const {global_color} = useAppSelector(state=>state.globalSlice.global);
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
     const navigate = useNavigate()
     useEffect(() => {
@@ -42,9 +46,13 @@ const Headers = () => {
             navigate('/login', {replace: true})
         }
     }
+    const switchChange = (checked:boolean)=>{
+        console.log(checked)
+        dispatch(setGlobalStyle(checked))
+    }
     return (
-        <Header className={styles.App_header}>
-            <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 260}}>
+        <Header style={{background:colorBgContainer}} className={styles.App_header}>
+            <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 200}}>
                 <img src={logo} alt="logo"/>
             </div>
             <div className={styles.head_com}>
@@ -54,7 +62,9 @@ const Headers = () => {
                 {/*<div className={styles.head_breadcrumb}>*/}
                 <Breadcrumb/>
                 {/*</div>*/}
-                <div className={styles.head_right}></div>
+                <div className={styles.head_right}>
+                    <Switch checked={global_color} checkedChildren="亮色" unCheckedChildren="暗色" onChange={switchChange}></Switch>
+                </div>
             </div>
             <div className={styles.user}>
                 <Badge count={1}>

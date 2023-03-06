@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import menuSlice from "@/redux/menu";
+import globalSlice from '@/redux/global'
 const store = configureStore({
     reducer: {
-        menuSlice
+        menuSlice,
+        globalSlice
     }
 })
 

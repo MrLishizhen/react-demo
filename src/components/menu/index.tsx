@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useLocation, useParams} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import type {MenuProps} from 'antd';
-import {Layout, Menu} from 'antd';
+import {Layout, Menu, theme} from 'antd';
 import _ from 'lodash'
 import IconFont from '@/components/icon'
 const {Sider, Content} = Layout;
@@ -61,6 +61,9 @@ const getOpenKeys = () => {
     }
 }
 const MenuCom = () => {
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
     const location = useLocation()
     const navigate = useNavigate()
@@ -80,12 +83,13 @@ const MenuCom = () => {
         setSelectedKeys(location.pathname.substring(1))
     }, [location])
     return (
-        <Sider trigger={null} collapsed={inlineCollapsed}>
+        <Sider style={{background:colorBgContainer}} trigger={null} collapsed={inlineCollapsed}>
             {/*<aside className={styles.App_aside}>*/}
                 <Menu
+                    style={{borderColor:'transparent'}}
                     // key={selectedKeys}
                     // inlineCollapsed={inlineCollapsed}
-                    theme="dark"
+                    // theme="light"
                     onClick={menuClick}
                     onOpenChange={openChange}
                     // style={{width: inlineCollapsed ? 90 : 260}}
