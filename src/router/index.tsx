@@ -7,7 +7,7 @@ import React from 'react'
 import {setMenu, removeTab, setRoutes} from '@/redux/menu'
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {message} from "antd";
+import {message,ConfigProvider,theme} from "antd";
 import {get_routers} from "@/router/route";
 import _ from 'lodash'
 
@@ -113,7 +113,7 @@ const RouterView = () => {
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? '' : routers
+                menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider theme={{algorithm:theme.darkAlgorithm}}>{routers}</ConfigProvider>
 
             }
         </>

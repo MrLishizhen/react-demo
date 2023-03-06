@@ -3,10 +3,10 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useLocation, useParams} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import type {MenuProps} from 'antd';
-import {Menu} from 'antd';
+import {Layout, Menu} from 'antd';
 import _ from 'lodash'
 import IconFont from '@/components/icon'
-
+const {Sider, Content} = Layout;
 interface route extends global_route {
     path?: string,
     element?: any,
@@ -80,20 +80,23 @@ const MenuCom = () => {
         setSelectedKeys(location.pathname.substring(1))
     }, [location])
     return (
-        <aside className={styles.App_aside}>
-            <Menu
-                // key={selectedKeys}
-                inlineCollapsed={inlineCollapsed}
-                theme="dark"
-                onClick={menuClick}
-                onOpenChange={openChange}
-                style={{width: inlineCollapsed ? 90 : 260}}
-                openKeys={openKeys}
-                selectedKeys={[selectedKeys]}
-                mode="inline"
-                items={items}
-            />
-        </aside>
+        <Sider trigger={null} collapsed={inlineCollapsed}>
+            {/*<aside className={styles.App_aside}>*/}
+                <Menu
+                    // key={selectedKeys}
+                    // inlineCollapsed={inlineCollapsed}
+                    theme="dark"
+                    onClick={menuClick}
+                    onOpenChange={openChange}
+                    // style={{width: inlineCollapsed ? 90 : 260}}
+                    openKeys={openKeys}
+                    selectedKeys={[selectedKeys]}
+                    mode="inline"
+                    items={items}
+                />
+            {/*</aside>*/}
+        </Sider>
+
     )
 }
 export default MenuCom

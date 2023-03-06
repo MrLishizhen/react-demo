@@ -8,7 +8,8 @@ import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {toggleCollapsed} from '@/redux/menu'
 import logo from '@/assets/logo-removebg-preview.png'
 import Breadcrumb from './breadcrumb'
-
+import {Layout} from 'antd'
+const { Header} = Layout;
 
 interface user {
     userName: string,
@@ -24,7 +25,7 @@ const MenuBtn: React.FC<{ menu_btn: boolean }> = ({menu_btn}) => {
         return <MenuUnfoldOutlined style={styles}/>
     }
 }
-const Header = () => {
+const Headers = () => {
     const dispatch = useAppDispatch();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
@@ -42,7 +43,7 @@ const Header = () => {
         }
     }
     return (
-        <header className={styles.App_header}>
+        <Header className={styles.App_header}>
             <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 260}}>
                 <img src={logo} alt="logo"/>
             </div>
@@ -69,7 +70,7 @@ const Header = () => {
                 </span>
 
             </div>
-        </header>
+        </Header>
     )
 }
-export default Header
+export default Headers

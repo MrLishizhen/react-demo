@@ -9,7 +9,9 @@ import WaterMarkBox from '@/components/watermark/index'
 import {SwitchTransition, CSSTransition} from 'react-transition-group'
 import {useAppSelector} from '@/redux/hook'
 import _ from "lodash";
+import {Layout} from 'antd'
 
+const {Content} = Layout;
 
 function App() {
     const location = useLocation();
@@ -17,15 +19,15 @@ function App() {
     const {nodeRef} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
     const currentOutlet = useOutlet()
     return (
-        <section className={styles.App}>
+        <Layout className={styles.App}>
             <Header/>
-            <section className={styles.App_bom}>
+            <Layout className={styles.App_bom}>
                 <MenuCom></MenuCom>
-                <section className={styles.App_main}>
+                <Layout className={styles.App_main}>
                     <nav className={styles.App_nav}>
                         <TabsCom></TabsCom>
                     </nav>
-                    <section className={styles.App_outlet}>
+                    <Content className={styles.App_outlet}>
                         <WaterMarkBox>
                             <Suspense fallback={<Loading/>}>
                                 <SwitchTransition>
@@ -48,10 +50,10 @@ function App() {
                                 </SwitchTransition>
                             </Suspense>
                         </WaterMarkBox>
-                    </section>
-                </section>
-            </section>
-        </section>
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
     )
 }
 
