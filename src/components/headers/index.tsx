@@ -74,7 +74,7 @@ const Headers = () => {
                     欢迎 {
                     USER.userName
                 }
-                    <div className={styles.user_list}>
+                    <div className={styles.user_list} style={{background:colorBgContainer}}>
                         <div className={styles.user_list_item} onClick={clearUser}>退出登录</div>
                     </div>
                 </span>
