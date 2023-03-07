@@ -1,12 +1,11 @@
-import styles from "@/index.module.less";
 import React, {useEffect, useState} from "react";
-import {useNavigate, useLocation, useParams} from 'react-router-dom'
-import {useAppDispatch, useAppSelector} from "@/redux/hook";
+import {useNavigate, useLocation} from 'react-router-dom'
+import {useAppSelector} from "@/redux/hook";
 import type {MenuProps} from 'antd';
 import {Layout, Menu, theme} from 'antd';
 import _ from 'lodash'
 import IconFont from '@/components/icon'
-const {Sider, Content} = Layout;
+const {Sider} = Layout;
 interface route extends global_route {
     path?: string,
     element?: any,
@@ -83,7 +82,7 @@ const MenuCom = () => {
         setSelectedKeys(location.pathname.substring(1))
     }, [location])
     return (
-        <Sider style={{background:colorBgContainer}} trigger={null} collapsed={inlineCollapsed}>
+        <Sider theme="light" trigger={null} collapsed={inlineCollapsed}>
             {/*<aside className={styles.App_aside}>*/}
                 <Menu
                     style={{borderColor:'transparent'}}
