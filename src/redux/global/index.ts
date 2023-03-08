@@ -6,11 +6,11 @@ import {getMenu} from "@/api";
 // 使用该类型定义初始 state
 const initialState: {
     global:{
-        global_color:boolean
+        global_color:boolean,
     }
 } = {
     global:{
-        global_color:true
+        global_color:true,
     }
 }
 

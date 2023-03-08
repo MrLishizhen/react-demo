@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useAppSelector} from "@/redux/hook";
 import styles from './index.module.less';
+
 const breadcrumb = () => {
     const location = useLocation()
     const [bread, set_bread] = useState<string[]>([])
@@ -21,12 +22,12 @@ const breadcrumb = () => {
         set_bread(items);
     }, [location.pathname])
     return (
-        <Breadcrumb className={styles.breadcrumb}>
-            {
-                bread.map(u=>{
-                    return <Breadcrumb.Item key={u}>{u}</Breadcrumb.Item>
-                })
-            }
+        <Breadcrumb className={styles.breadcrumb} items={[...bread.map((u:string) => ({title: u}))]}>
+            {/*{*/}
+            {/*    bread.map(u=>{*/}
+            {/*        return <Breadcrumb.Item key={u}>{u}</Breadcrumb.Item>*/}
+            {/*    })*/}
+            {/*}*/}
         </Breadcrumb>
     )
 }

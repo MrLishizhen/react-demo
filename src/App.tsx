@@ -22,6 +22,31 @@ function App() {
     const routes = _.cloneDeep(useAppSelector(state => state.menuSlice.routes))
     const {nodeRef} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
     const currentOutlet = useOutlet()
+    const children = ()=>{
+        return(
+            <Suspense fallback={<Loading/>}>
+                <SwitchTransition>
+                    <CSSTransition
+                        key={location.pathname}
+                        timeout={360}
+                        nodeRef={nodeRef}
+                        classNames={'page'}
+                        unmountOnExit>
+                        {(state) => {
+                            return (
+                                <div style={{color: colorTextBase}} ref={nodeRef} className={'page'}>
+
+                                    {currentOutlet}
+                                    {/*{<Outlet></Outlet>}*/}
+                                </div>
+                            )
+                        }}
+                    </CSSTransition>
+                </SwitchTransition>
+            </Suspense>
+        )
+    }
+
     return (
         <Layout className={styles.App}>
             <Header/>
@@ -32,27 +57,11 @@ function App() {
                         <TabsCom></TabsCom>
                     </nav>
                     <Content className={styles.App_outlet}>
-                        <WaterMarkBox>
-                            <Suspense fallback={<Loading/>}>
-                                <SwitchTransition>
-                                    <CSSTransition
-                                        key={location.pathname}
-                                        timeout={360}
-                                        nodeRef={nodeRef}
-                                        classNames={'page'}
-                                        unmountOnExit>
-                                        {(state) => {
-                                            return (
-                                                <div style={{color: colorTextBase}} ref={nodeRef} className={'page'}>
 
-                                                    {currentOutlet}
-                                                    {/*{<Outlet></Outlet>}*/}
-                                                </div>
-                                            )
-                                        }}
-                                    </CSSTransition>
-                                </SwitchTransition>
-                            </Suspense>
+                        <WaterMarkBox content={''}>
+                            {
+                                children()
+                            }
                         </WaterMarkBox>
                     </Content>
                 </Layout>

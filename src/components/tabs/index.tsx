@@ -48,7 +48,7 @@ const TabsCom = () => {
                     // key={activeKey}
                     hideAdd
                     size={'small'}
-                    // key={activeKey}
+                    key={activeKey}
                     // type="card"
                     activeKey={activeKey}
                     // defaultActiveKey={activeKey}
