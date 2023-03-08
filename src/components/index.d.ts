@@ -1,0 +1,1 @@
+type EventParams = echarts.ECElementEvent

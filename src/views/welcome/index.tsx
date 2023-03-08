@@ -18,9 +18,12 @@ const Welcome = () => {
             }
         ]
     }
+    const echarts_click = (params: EventParams)=>{
+        console.log(params)
+    }
     return (
         <div className={styles.welcome}>
-            <EchartsContainer echarts_option={option}/>
+            <EchartsContainer events={[{type:'click',events:(params:EventParams)=>echarts_click(params)}]} echarts_option={option}/>
         </div>
     )
 }

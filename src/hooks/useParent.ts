@@ -5,7 +5,6 @@ function useParent(el: any) {
     const [height_number, set_height_number] = useState<number>(0)
     const handle = useCallback(() => {
         if (el.current) {
-            console.log(1245)
             set_width_number(el.current.parentNode.clientWidth)
             set_height_number(el.current.parentNode.clientHeight)
         }
