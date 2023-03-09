@@ -1,4 +1,33 @@
-.welcome{
-  width:100%;
-  height:100%;
+.welcome {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  //background-color: #fff;
+  padding:16px;
+  border-radius: 8px;
+  .welcome_top {
+    border: 1px solid #ccc;
+    height: 50%;
+
+  }
+
+  .welcome_cent {
+    flex-shrink: 0;
+    padding-top: 30px;
+    display: flex;
+    height: 50%;
+
+    .welcome_cent_left {
+      margin-right:30px;
+      width: calc((100% - 30px) / 2);
+      border: 1px solid #ccc;
+    }
+
+    .welcome_cent_right {
+      flex-shrink: 0;
+      width: calc((100% - 30px) / 2);
+      border: 1px solid #ccc;
+    }
+  }
 }
