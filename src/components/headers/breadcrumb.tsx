@@ -11,7 +11,6 @@ const breadcrumb = () => {
     useEffect(() => {
         const paths = location.pathname.split('/').filter((u: string) => u)
         const path = paths.join('/')
-        console.log(routes)
         const items: string[] = []
         paths.forEach(u => {
             let item = routes.find(j => j.key === u || j.key === path);
@@ -22,7 +21,7 @@ const breadcrumb = () => {
         set_bread(items);
     }, [location.pathname])
     return (
-        <Breadcrumb className={styles.breadcrumb} items={[...bread.map((u:string) => ({title: u}))]}>
+        <Breadcrumb className={styles.breadcrumb} items={[...bread.map((u: string) => ({title: u}))]}>
             {/*{*/}
             {/*    bread.map(u=>{*/}
             {/*        return <Breadcrumb.Item key={u}>{u}</Breadcrumb.Item>*/}

@@ -14,6 +14,7 @@ const Model = (link: any,) => {
     )
 }
 export const get_routers = (data: any) => {
+    console.log('我执行了')
     const set_children_data = (datas: any) => {
         for (let i = 0; i < datas.length; i++) {
 

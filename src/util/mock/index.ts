@@ -31,6 +31,7 @@ Mock.mock('/get_menu',function(){
                 id:1,
                 parent_id:0,
                 icon:'HomeOutlined',
+                layout:'App',
                 label:'首页',
                 name:'welcome',
                 key:'welcome',
@@ -42,6 +43,7 @@ Mock.mock('/get_menu',function(){
                 id:2,
                 parent_id:0,
                 icon:'BarChartOutlined',
+                layout:'App',
                 label:'分析页',
                 name:'analysis',
                 key:'analysis',
@@ -54,6 +56,7 @@ Mock.mock('/get_menu',function(){
                 parent_id:0,
                 label:'权限页',
                 icon:'LockOutlined',
+                layout:'App',
                 name:'jurisdiction',
                 key:'jurisdiction',
                 meta:{
@@ -65,6 +68,7 @@ Mock.mock('/get_menu',function(){
                 parent_id:3,
                 label:'用户权限',
                 name:'user_jurisdiction',
+                layout:'App',
                 key:'jurisdiction/user_jurisdiction',
                 meta:{
                     title:'用户权限'
@@ -74,6 +78,7 @@ Mock.mock('/get_menu',function(){
                 id:5,
                 parent_id:3,
                 label:'菜单权限',
+                layout:'App',
                 name:'menu_jurisdiction',
                 key:'jurisdiction/menu_jurisdiction',
                 meta:{

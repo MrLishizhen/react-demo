@@ -15,6 +15,7 @@ interface global_route {
     parent_id: number,
     icon: string | React.ReactElement,
     label: string,
+    layout: string,
     name: string,
     key: string,
     meta: meta,

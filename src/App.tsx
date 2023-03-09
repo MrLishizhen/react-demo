@@ -20,10 +20,41 @@ function App() {
     } = theme.useToken();
     const location = useLocation();
     const routes = _.cloneDeep(useAppSelector(state => state.menuSlice.routes))
-    const {nodeRef} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
+    const {nodeRef, layout} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
     const currentOutlet = useOutlet()
-    const children = ()=>{
-        return(
+    const create_layout = (type: string | undefined) => {
+        if (type === 'App') {
+            return <>
+                <MenuCom></MenuCom>
+                <Layout className={styles.App_main}>
+                    <nav className={styles.App_nav}>
+                        <TabsCom></TabsCom>
+                    </nav>
+                    <Content className={styles.App_outlet}>
+                        <WaterMarkBox content={''}>
+                            {
+                                children()
+                            }
+                        </WaterMarkBox>
+                    </Content>
+                </Layout>
+            </>
+        } else if (type !== undefined) {
+            return <Content className={styles.App_outlet}>
+                <WaterMarkBox content={''}>
+                    {
+                        children()
+                    }
+                </WaterMarkBox>
+            </Content>
+        } else {
+            return <></>
+        }
+    }
+
+
+    const children = () => {
+        return (
             <Suspense fallback={<Loading/>}>
                 <SwitchTransition>
                     <CSSTransition
@@ -51,20 +82,9 @@ function App() {
         <Layout className={styles.App}>
             <Header/>
             <Layout className={styles.App_bom}>
-                <MenuCom></MenuCom>
-                <Layout className={styles.App_main}>
-                    <nav className={styles.App_nav}>
-                        <TabsCom></TabsCom>
-                    </nav>
-                    <Content className={styles.App_outlet}>
-
-                        <WaterMarkBox content={''}>
-                            {
-                                children()
-                            }
-                        </WaterMarkBox>
-                    </Content>
-                </Layout>
+                {
+                    create_layout(layout)
+                }
             </Layout>
         </Layout>
     )
