@@ -14,11 +14,12 @@ const Welcome = () => {
         },
         series: [
             {
-                data: [150, 230, 224, 218, 135, 147, 260],
-                type: 'line'
+                data: [120, 200, 150, 80, 70, 110, 130],
+                type: 'bar'
             }
         ]
-    }
+    };
+
     const echarts_click = (params: ECElementEvent) => {
         console.log(params)
     }

@@ -2,15 +2,16 @@ import App from '@/App'
 import Login from '@/views/login'
 import Empty from '@/views/empty'
 import {Navigate, useRoutes, useNavigate, useLocation} from 'react-router-dom'
-import {createRef, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import React from 'react'
 import {setMenu, removeTab, setRoutes} from '@/redux/menu'
+import {setGlobalStyle} from "@/redux/global";
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
 import {message, ConfigProvider, theme} from "antd";
 import {get_routers} from "@/router/route";
 import _ from 'lodash'
-import {setGlobalStyle} from "@/redux/global";
+
 
 interface route {
     label?: string,

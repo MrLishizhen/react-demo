@@ -71,7 +71,12 @@ const MenuCom = () => {
     const menu: global_route[] = useAppSelector(state => state.menuSlice.menu_list)
     let items: MenuProps['items'] = get_menu(_.cloneDeep(menu))
     const menuClick: MenuProps['onClick'] = (e) => {
-        navigate(e.key)
+        if(e.key.indexOf('http')===0){
+            window.open(e.key)
+        }else{
+            navigate(e.key)
+        }
+
     }
     const openChange = (openKeys: string[]) => {
         setOpenKeys(openKeys)

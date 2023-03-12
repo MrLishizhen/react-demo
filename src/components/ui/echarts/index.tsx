@@ -17,7 +17,6 @@
 * */
 import * as echarts from 'echarts';
 import {useEffect, useRef, useImperativeHandle, forwardRef} from "react";
-import useParent from "@/hooks/useParent";
 import {ECElementEvent} from "echarts/types/dist/echarts";
 
 type EChartsOption = echarts.EChartsOption;
@@ -37,37 +36,39 @@ const EchartsContainer = forwardRef((props: EchartsContainer, ref) => {
 
     const {echarts_option, events} = props;
     const echarts_ref = useRef<HTMLDivElement>(null)
-    const [width = 100, height = 100] = useParent(echarts_ref)
     const myChart = useRef<echarts.ECharts | null>(null)
-
-    useEffect(() => {
+    //
+    const init = () => {
         if (echarts_ref.current) {
-            if (!myChart.current) {
-                myChart.current = echarts.init(echarts_ref.current);
-            }
+            echarts.dispose(echarts_ref.current);
+            myChart.current = echarts.init(echarts_ref.current);
             const option = {...echarts_option};
-            myChart.current.setOption(option, true)
+            myChart.current.setOption(option)
             if (Array.isArray(events) && events.length > 0) {
                 for (let i = 0; i < events.length; i++) {
-                    myChart.current.on(events[i].type, function (params) {
+                    myChart.current && myChart.current.on(events[i].type, function (params) {
                         return events[i].events && events[i].events(params as ECElementEvent);
                     });
                 }
             }
         }
-    }, [])
+    }
+    const resizeAll = () => {
+        myChart.current && myChart.current.resize()
+    }
     useEffect(() => {
-        myChart.current?.resize({
-            width,
-            height
-        })
-    }, [width, height])
+        window.addEventListener('resize', resizeAll, false)
+        init();
+        return () => {
+            window.removeEventListener('resize', resizeAll, false)
+        }
+    }, [])
 
     useImperativeHandle(ref, () => {
         return myChart.current
     }, [myChart.current])
     return (
-        <div ref={echarts_ref} style={{width: width ? width : 600, height: height ? height : 400}}/>
+        <div ref={echarts_ref} style={{width: '100%', height: '100%'}}/>
     )
 })
 

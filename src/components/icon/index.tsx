@@ -3,17 +3,25 @@
 * */
 
 import React from 'react'
-import {HomeOutlined,BarChartOutlined,LockOutlined,MenuFoldOutlined} from '@ant-design/icons';
+import {
+    HomeOutlined,
+    BarChartOutlined,
+    LockOutlined,
+    MenuFoldOutlined,
+    ZhihuOutlined,
+    PaperClipOutlined,
+    GithubOutlined
+} from '@ant-design/icons';
 
 interface IconFontType {
     icon_link?: string,
-    style?:React.CSSProperties
+    style?: React.CSSProperties
 }
 
-const IconFont: (props: IconFontType) => (React.ReactElement) = (props:IconFontType)=> {
-    const {icon_link,style} = props;
+const IconFont: (props: IconFontType) => (React.ReactElement) = (props: IconFontType) => {
+    const {icon_link, style} = props;
     const styles = {...style}
-    switch (icon_link){
+    switch (icon_link) {
         case 'HomeOutlined':
             return <HomeOutlined style={styles}/>
         case 'BarChartOutlined':
@@ -22,6 +30,13 @@ const IconFont: (props: IconFontType) => (React.ReactElement) = (props:IconFontT
             return <LockOutlined style={styles}/>
         case 'MenuFoldOutlined':
             return <MenuFoldOutlined style={styles}/>
+        case 'ZhihuOutlined':
+            return <ZhihuOutlined style={styles}/>
+        case 'PaperClipOutlined':
+            return <PaperClipOutlined style={styles}/>
+        case 'GithubOutlined':
+            return <GithubOutlined style={styles}/>
+
         default:
             return <></>
     }
