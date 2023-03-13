@@ -7,10 +7,12 @@ import {getMenu} from "@/api";
 const initialState: {
     global:{
         global_color:boolean,
+        colorPrimary:string,
     }
 } = {
     global:{
         global_color:true,
+        colorPrimary:'rgba(22,119,255,1)'
     }
 }
 
@@ -23,11 +25,14 @@ export const globalSlice = createSlice({
         setGlobalStyle: (state, action) => {
             state.global.global_color = action.payload
         },
+        setColorPrimary:(state,action)=>{
+            state.global.colorPrimary = action.payload
+        }
 
     }
 })
 
-export const {setGlobalStyle} = globalSlice.actions
+export const {setGlobalStyle,setColorPrimary} = globalSlice.actions
 // 选择器等其他代码可以使用导入的 `RootState` 类型
 export const getMenuList = createAsyncThunk('menu/getMenu', async (): Promise<request> => {
     return await getMenu({userName: 'admin'});

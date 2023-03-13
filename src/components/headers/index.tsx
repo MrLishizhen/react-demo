@@ -5,12 +5,16 @@ import {Avatar, Badge, theme} from 'antd';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
-import {setGlobalStyle} from '@/redux/global'
+import {setGlobalStyle, setColorPrimary} from '@/redux/global'
 import {toggleCollapsed} from '@/redux/menu'
 import logo from '@/assets/logo-removebg-preview.png'
 import Breadcrumb from './breadcrumb'
-import {Layout,Switch} from 'antd'
-const { Header} = Layout;
+import {Layout, Switch} from 'antd'
+import Colors from "@/components/ui/colors";
+import {ColorResult} from "react-color";
+
+const {Header} = Layout;
+
 interface user {
     userName: string,
     password: string,
@@ -27,11 +31,11 @@ const MenuBtn: React.FC<{ menu_btn: boolean }> = ({menu_btn}) => {
 }
 const Headers = () => {
     const {
-        token: { colorBgContainer },
+        token: {colorBgContainer},
     } = theme.useToken();
     const dispatch = useAppDispatch();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
-    const {global_color} = useAppSelector(state=>state.globalSlice.global);
+    const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global);
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
     const navigate = useNavigate()
     useEffect(() => {
@@ -46,12 +50,14 @@ const Headers = () => {
             navigate('/login', {replace: true})
         }
     }
-    const switchChange = (checked:boolean)=>{
-        console.log(checked)
+    const switchChange = (checked: boolean) => {
         dispatch(setGlobalStyle(checked))
     }
+    const colorChange = (value: ColorResult) => {
+        dispatch(setColorPrimary(`rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`))
+    }
     return (
-        <Header style={{background:colorBgContainer}} className={styles.App_header}>
+        <Header style={{background: colorBgContainer}} className={styles.App_header}>
             <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 200}}>
                 <img src={logo} alt="logo"/>
             </div>
@@ -63,7 +69,9 @@ const Headers = () => {
                 <Breadcrumb/>
                 {/*</div>*/}
                 <div className={styles.head_right}>
-                    <Switch checked={global_color} checkedChildren="亮色" unCheckedChildren="暗色" onChange={switchChange}></Switch>
+                    <Colors color={colorPrimary} onChange={(value) => colorChange(value)}/>
+                    <Switch checked={global_color} checkedChildren="亮色" unCheckedChildren="暗色"
+                            onChange={switchChange}></Switch>
                 </div>
             </div>
             <div className={styles.user}>
@@ -74,7 +82,7 @@ const Headers = () => {
                     欢迎 {
                     USER.userName
                 }
-                    <div className={styles.user_list} style={{background:colorBgContainer}}>
+                    <div className={styles.user_list} style={{background: colorBgContainer}}>
                         <div className={styles.user_list_item} onClick={clearUser}>退出登录</div>
                     </div>
                 </span>

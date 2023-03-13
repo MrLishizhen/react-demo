@@ -14,7 +14,6 @@ import {Layout, theme} from 'antd'
 const {Content} = Layout;
 
 function App() {
-
     const {
         token: {colorTextBase},
     } = theme.useToken();
@@ -25,10 +24,10 @@ function App() {
     const create_layout = (type: string | undefined) => {
         if (type === 'App') {
             return <>
-                <MenuCom></MenuCom>
+                <MenuCom/>
                 <Layout className={styles.App_main}>
                     <nav className={styles.App_nav}>
-                        <TabsCom></TabsCom>
+                        <TabsCom/>
                     </nav>
                     <Content className={styles.App_outlet}>
                         <WaterMarkBox content={''}>

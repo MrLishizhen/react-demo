@@ -28,7 +28,7 @@ const RouterView = () => {
     const [bs_number, set_bs_number] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
-    const {global_color} = useAppSelector(state => state.globalSlice.global)
+    const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global)
     const location = useLocation()
 
     //修改网站title
@@ -118,7 +118,11 @@ const RouterView = () => {
         <>
             {
                 menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider
-                    theme={{algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']}}>{routers}</ConfigProvider>
+                    theme={{
+                        token: {
+                            colorPrimary: colorPrimary,
+                        }, algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']
+                    }}>{routers}</ConfigProvider>
 
             }
         </>
