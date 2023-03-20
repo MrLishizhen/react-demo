@@ -8,7 +8,7 @@ import {setMenu, removeTab, setRoutes} from '@/redux/menu'
 import {setGlobalStyle} from "@/redux/global";
 import {useAppDispatch, useAppSelector} from '@/redux/hook'
 import {getMenu} from "@/api";
-import {message, ConfigProvider, theme} from "antd";
+import {message} from "antd";
 import {get_routers} from "@/router/route";
 import _ from 'lodash'
 
@@ -28,7 +28,6 @@ const RouterView = () => {
     const [bs_number, set_bs_number] = useState(0)
     const dispatch = useAppDispatch()
     const menu: route[] = useAppSelector(state => state.menuSlice.menu_list)
-    const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global)
     const location = useLocation()
 
     //修改网站title
@@ -117,12 +116,7 @@ const RouterView = () => {
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: colorPrimary,
-                        }, algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']
-                    }}>{routers}</ConfigProvider>
+                menu.length === 0 && location.pathname != '/login' ? '' : routers
 
             }
         </>

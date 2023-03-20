@@ -60,9 +60,6 @@ const getOpenKeys = () => {
     }
 }
 const MenuCom = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
     const location = useLocation()
     const navigate = useNavigate()
@@ -87,13 +84,13 @@ const MenuCom = () => {
         setSelectedKeys(location.pathname.substring(1))
     }, [location])
     return (
-        <Sider theme="light" trigger={null} collapsed={inlineCollapsed}>
+        <Sider trigger={null} collapsed={inlineCollapsed}>
             {/*<aside className={styles.App_aside}>*/}
                 <Menu
                     style={{borderColor:'transparent'}}
                     // key={selectedKeys}
                     // inlineCollapsed={inlineCollapsed}
-                    // theme="light"
+                    theme="dark"
                     onClick={menuClick}
                     onOpenChange={openChange}
                     // style={{width: inlineCollapsed ? 90 : 260}}
