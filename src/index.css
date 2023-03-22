@@ -85,8 +85,10 @@
     position: absolute;
     top:0;
     left:0;
+    background: #fff;
     /*left: 16px;*/
     /*right: 16px;*/
+    /*border-radius: 8px;*/
 }
 
 .page-enter {

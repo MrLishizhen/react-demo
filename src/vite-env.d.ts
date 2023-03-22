@@ -2,7 +2,8 @@
 // import React from "react";
 
 interface meta {
-    title: string
+    title: string,
+    params?:string[]|string
 }
 
 interface tabs_type {

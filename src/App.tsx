@@ -22,7 +22,7 @@ function App() {
     const {nodeRef, layout} = routes.find((route: any) => '/' + route.key === location.pathname) ?? {};
     const currentOutlet = useOutlet()
     const create_layout = (type: string | undefined) => {
-        if (type === 'App') {
+        if (type === 'App'||!type) {
             return <>
                 <MenuCom/>
                 <Layout className={styles.App_main}>
@@ -46,8 +46,6 @@ function App() {
                     }
                 </WaterMarkBox>
             </Content>
-        } else {
-            return <></>
         }
     }
 

@@ -113,6 +113,43 @@ Mock.mock('/get_menu', function () {
                 name: 'open',
                 key: 'https://github.com/'
             },
+            {
+                id: 9,
+                parent_id: 0,
+                label: '文章管理',
+                icon: 'LockOutlined',
+                layout: 'App',
+                name: 'article',
+                key: 'article',
+                meta: {
+                    title: '文章管理'
+                }
+            },
+            {
+                id: 10,
+                parent_id: 9,
+                label: '文章编辑',
+                icon: '',
+                layout: 'App',
+                name: 'edit_article',
+                key: 'article/edit_article',
+                meta: {
+                    title: '文章编辑',
+                    // params:[':id']
+                }
+            },
+            {
+                id: 11,
+                parent_id: 9,
+                label: '文章查看',
+                icon: '',
+                layout: 'App',
+                name: 'manage_article',
+                key: 'article/manage_article',
+                meta: {
+                    title: '文章查看'
+                }
+            },
         ]
     })
 })
