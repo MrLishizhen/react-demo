@@ -24,19 +24,23 @@ function App() {
     const create_layout = (type: string | undefined) => {
         if (type === 'App'||!type) {
             return <>
-                <MenuCom/>
-                <Layout className={styles.App_main}>
-                    <nav className={styles.App_nav}>
-                        <TabsCom/>
-                    </nav>
-                    <Content className={styles.App_outlet}>
-                        <WaterMarkBox content={''}>
-                            {
-                                children()
-                            }
-                        </WaterMarkBox>
-                    </Content>
+                <Header/>
+                <Layout className={styles.App_bom}>
+                    <MenuCom/>
+                    <Layout className={styles.App_main}>
+                        <nav className={styles.App_nav}>
+                            <TabsCom/>
+                        </nav>
+                        <Content className={styles.App_outlet}>
+                            <WaterMarkBox content={''}>
+                                {
+                                    children()
+                                }
+                            </WaterMarkBox>
+                        </Content>
+                    </Layout>
                 </Layout>
+
             </>
         } else if (type !== undefined) {
             return <Content className={styles.App_outlet}>
@@ -77,12 +81,9 @@ function App() {
 
     return (
         <Layout className={styles.App}>
-            <Header/>
-            <Layout className={styles.App_bom}>
-                {
-                    create_layout(layout)
-                }
-            </Layout>
+            {
+                create_layout(layout)
+            }
         </Layout>
     )
 }
