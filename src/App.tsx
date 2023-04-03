@@ -66,7 +66,10 @@ function App() {
                         unmountOnExit>
                         {(state) => {
                             return (
-                                <div style={{color: colorTextBase}} ref={nodeRef} className={'page'}>
+                                <div
+                                    // style={{color: colorTextBase}}
+                                    ref={nodeRef}
+                                    className={'page'}>
 
                                     {currentOutlet}
                                     {/*{<Outlet></Outlet>}*/}

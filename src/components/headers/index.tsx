@@ -30,12 +30,12 @@ const MenuBtn: React.FC<{ menu_btn: boolean }> = ({menu_btn}) => {
     }
 }
 const Headers = () => {
-    const {
-        token: {colorBgContainer},
-    } = theme.useToken();
+    // const {
+    //     token: {colorBgContainer},
+    // } = theme.useToken();
     const dispatch = useAppDispatch();
     const inlineCollapsed: boolean = useAppSelector(state => state.menuSlice.inlineCollapsed)
-    const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global);
+    // const {global_color, colorPrimary} = useAppSelector(state => state.globalSlice.global);
     const [USER, setUSER] = useState<user>({userName: '', password: ''});
     const navigate = useNavigate()
     useEffect(() => {
@@ -57,7 +57,9 @@ const Headers = () => {
         dispatch(setColorPrimary(`rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`))
     }
     return (
-        <Header style={{background: colorBgContainer}} className={styles.App_header}>
+        <Header
+            // style={{background: colorBgContainer}}
+            className={styles.App_header}>
             <div className={styles.logo} style={{width: inlineCollapsed ? 90 : 200}}>
                 <img src={logo} alt="logo"/>
             </div>
@@ -66,13 +68,13 @@ const Headers = () => {
                     <MenuBtn menu_btn={!inlineCollapsed}/>
                 </div>
                 {/*<div className={styles.head_breadcrumb}>*/}
-                <Breadcrumb/>
+                {/*<Breadcrumb/>*/}
                 {/*</div>*/}
-                <div className={styles.head_right}>
-                    <Colors color={colorPrimary} onChange={(value) => colorChange(value)}/>
-                    <Switch checked={global_color} checkedChildren="亮色" unCheckedChildren="暗色"
-                            onChange={switchChange}></Switch>
-                </div>
+                {/*<div className={styles.head_right}>*/}
+                {/*    <Colors color={colorPrimary} onChange={(value) => colorChange(value)}/>*/}
+                {/*    <Switch checked={global_color} checkedChildren="亮色" unCheckedChildren="暗色"*/}
+                {/*            onChange={switchChange}></Switch>*/}
+                {/*</div>*/}
             </div>
             <div className={styles.user}>
                 <Badge count={1}>
@@ -82,7 +84,9 @@ const Headers = () => {
                     欢迎 {
                     USER.userName
                 }
-                    <div className={styles.user_list} style={{background: colorBgContainer}}>
+                    <div className={styles.user_list}
+                         // style={{background: colorBgContainer}}
+                    >
                         <div className={styles.user_list_item} onClick={clearUser}>退出登录</div>
                     </div>
                 </span>

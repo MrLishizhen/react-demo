@@ -117,15 +117,21 @@ const RouterView = () => {
     return (
         <>
             {
-                menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: colorPrimary,
-                        }, algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']
-                    }}>{routers}</ConfigProvider>
+                menu.length === 0 && location.pathname != '/login' ? '' : routers
 
             }
         </>
+        // <>
+        //     {
+                // menu.length === 0 && location.pathname != '/login' ? '' : <ConfigProvider
+                //     theme={{
+                //         token: {
+                //             colorPrimary: colorPrimary,
+                //         }, algorithm: theme[global_color ? 'defaultAlgorithm' : 'darkAlgorithm']
+                //     }}>{routers}</ConfigProvider>
+
+        //     }
+        // </>
     )
 }
 export default RouterView
