@@ -10,6 +10,7 @@ interface route extends global_route {
     path?: string,
     element?: any,
     children?: route[]
+
 }
 
 const get_menu = (data: global_route[]) => {
